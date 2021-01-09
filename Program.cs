@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using System.Configuration;
-using System.Collections.Specialized;
 
 namespace csharp_discord_bot
 {
@@ -31,7 +27,8 @@ namespace csharp_discord_bot
 
             commands = new CommandService();
                 client.Log += Log;
-                client.Ready += () =>
+            commands.Log += Log;
+            client.Ready += () =>
                 {
                     Hellow = ConfigurationManager.AppSettings.Get("Hellow");
                     Console.WriteLine("[Info]: " + Hellow);
@@ -73,9 +70,27 @@ namespace csharp_discord_bot
                 await context.Channel.SendMessageAsync(result.ErrorReason);
         }
 
-        private Task Log (LogMessage arg)
+        private static Task Log (LogMessage arg)
         {
-            Console.WriteLine(arg.ToString());
+            switch (arg.Severity)
+            {
+                case LogSeverity.Critical:
+                case LogSeverity.Error:
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    break;
+                case LogSeverity.Warning:
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    break;
+                case LogSeverity.Info:
+                    Console.ForegroundColor = ConsoleColor.White;
+                    break;
+                case LogSeverity.Verbose:
+                case LogSeverity.Debug:
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    break;
+            }
+            Console.WriteLine($"{DateTime.Now,-19} [{arg.Severity,8}] {arg.Source}: {arg.Message} {arg.Exception}");
+            Console.ResetColor();
             return Task.CompletedTask;
         }
     }
