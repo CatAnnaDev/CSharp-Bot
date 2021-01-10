@@ -5,30 +5,29 @@ using Newtonsoft.Json.Linq;
 using System.Net;
 using System;
 using Discord.WebSocket;
-
-
-public class Root
-{
-    public string file { get; set; }
-}
+using System.Configuration;
 
 namespace csharp_discord_bot.Modules
 {
     public class Commands : ModuleBase<SocketCommandContext>
     {
+        string Cats;
+        string Dogy;
+        string giphelove;
+        string giphykittens;
+        string memeu;
+        string porns;
 
         [Command("ping")]
         public async Task PingAsync()
         {
             await ReplyAsync("Pong!");
         }
-
         [Command("avatar")]
-        public async Task AvatrAsync(ushort size = 512)
+        public async Task AvatrAsync(ushort Size = 512)
         {
-            await ReplyAsync(CDN.GetUserAvatarUrl(Context.User.Id, Context.User.AvatarId, size = 512, ImageFormat.Auto));
+            await ReplyAsync(CDN.GetUserAvatarUrl(Context.User.Id, Context.User.AvatarId, Size = 512, ImageFormat.Auto));
         }
-
         [Command("react")]
         public async Task ReactAsync(string pmsg, string pEmoji)
         {
@@ -41,8 +40,9 @@ namespace csharp_discord_bot.Modules
         [Alias("cats", "cat", "yaong")]
         public async Task MeowAsync()
         {
+            Cats = ConfigurationManager.AppSettings.Get("Cats");
             WebClient c = new WebClient();
-            var data = c.DownloadString("https://aws.random.cat/meow");
+            var data = c.DownloadString(Cats);
             JObject meows = JObject.Parse(data);
             var meow = meows.SelectToken("file");
             await ReplyAsync(meow.ToString());
@@ -50,8 +50,9 @@ namespace csharp_discord_bot.Modules
         [Command("dog")]
         public async Task DogAsync()
         {
+            Dogy = ConfigurationManager.AppSettings.Get("Dogs");
             WebClient c = new WebClient();
-            var data = c.DownloadString("https://dog.ceo/api/breeds/image/random");
+            var data = c.DownloadString(Dogy);
             JObject Dogs = JObject.Parse(data);
             var dog = Dogs.SelectToken("message");
             await ReplyAsync(dog.ToString());
@@ -59,8 +60,9 @@ namespace csharp_discord_bot.Modules
         [Command("Love")]
         public async Task LoveAsync()
         {
+            giphelove = ConfigurationManager.AppSettings.Get("giphelove");
             WebClient c = new WebClient();
-            var data = c.DownloadString("https://api.giphy.com/v1/gifs/random?api_key=&&&&tag=Love&rating=g");
+            var data = c.DownloadString(giphelove);
             JObject Loves = JObject.Parse(data);
             var Love = Loves.SelectToken("data");
             var love1 = Love.SelectToken("url");
@@ -69,8 +71,9 @@ namespace csharp_discord_bot.Modules
         [Command("gif")]
         public async Task GifAsync()
         {
+            giphykittens = ConfigurationManager.AppSettings.Get("giphykittens");
             WebClient c = new WebClient();
-            var data = c.DownloadString("https://api.giphy.com/v1/gifs/random?api_key=&&&&tag=kittens&rating=g");
+            var data = c.DownloadString(giphykittens);
             JObject meows = JObject.Parse(data);
             var meow = meows.SelectToken("data");
             var meow1 = meow.SelectToken("url");
@@ -80,8 +83,9 @@ namespace csharp_discord_bot.Modules
         [Alias("truc", "fun", "lol")]
         public async Task MemeAsync()
         {
+            memeu = ConfigurationManager.AppSettings.Get("meme");
             WebClient c = new WebClient();
-            var data = c.DownloadString("https://meme-api.herokuapp.com/gimme"); // /gimme/{subreddit}
+            var data = c.DownloadString(memeu);
             JObject Memes = JObject.Parse(data);
             var meme = Memes.SelectToken("url");
             await ReplyAsync(meme.ToString());
@@ -90,13 +94,13 @@ namespace csharp_discord_bot.Modules
         [Alias("porn", "pussy", "-18")]
         public async Task AsianAsync()
         {
+            porns = ConfigurationManager.AppSettings.Get("porn");
             WebClient c = new WebClient();
-            var data = c.DownloadString("https://meme-api.herokuapp.com/gimme/juicyasians"); // /gimme/{subreddit}
+            var data = c.DownloadString(porns);
             JObject asians = JObject.Parse(data);
             var asian = asians.SelectToken("url");
             await ReplyAsync(asian.ToString());
         }
-
         public class InfoModule : ModuleBase<SocketCommandContext>
         {
             [Command("say")]
@@ -104,7 +108,6 @@ namespace csharp_discord_bot.Modules
             public Task SayAsync([Remainder][Summary("The text to echo")] string echo)
                 => ReplyAsync(echo);
         }
-
         [Command("square")]
         [Summary("Squares a number.")]
         public async Task SquareAsync(
@@ -113,7 +116,6 @@ namespace csharp_discord_bot.Modules
         {
             await ReplyAsync($"{num}^2 = {Math.Pow(num, 2)}");
         }
-
         [Command("userinfo")]
         [Summary
         ("Returns info about the current user, or the user parameter, if one passed.")]
@@ -125,7 +127,6 @@ namespace csharp_discord_bot.Modules
             var userInfo = user ?? Context.Client.CurrentUser;
             await ReplyAsync($"{userInfo.Username}#{userInfo.Discriminator}");
         }
-
         [Command("help")]
         public async Task HelpAsync()
         {
@@ -150,7 +151,6 @@ namespace csharp_discord_bot.Modules
                 null,
                 embed: embed)
                 .ConfigureAwait(false);
-
         }
     }
 }
