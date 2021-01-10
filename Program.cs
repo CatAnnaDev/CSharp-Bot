@@ -13,7 +13,8 @@ namespace csharp_discord_bot
         private DiscordSocketClient client;
         private CommandService commands;
 
-        static void Main(string[] args) => new Program().RunBotAsync().GetAwaiter().GetResult();
+        static void Main(string[] args) 
+            => new Program().RunBotAsync().GetAwaiter().GetResult();
        
         public async Task RunBotAsync()
             {
