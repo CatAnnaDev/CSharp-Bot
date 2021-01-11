@@ -1,9 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
-using Discord.Audio;
-using Newtonsoft.Json.Linq;
-using System.Net;
 using System;
 using Discord.WebSocket;
 using System.Configuration;

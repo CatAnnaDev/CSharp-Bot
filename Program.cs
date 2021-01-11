@@ -5,73 +5,56 @@ using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using System.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Linq;
 
 namespace csharp_discord_bot
 {
-    class Program
+    public class Program
     {
-        private DiscordSocketClient client;
-        private CommandService commands;
-        private CommandService Help;
+        static void Main(string[] args)
+            => new Program().MainAsync().GetAwaiter().GetResult();
 
-        static void Main(string[] args) 
-            => new Program().RunBotAsync().GetAwaiter().GetResult();
-       
-        public async Task RunBotAsync()
-            {
-            string Token;
-            string Hellow;
+        public async Task MainAsync()
+        {
+            using var services = ConfigureServices();
 
-            client = new DiscordSocketClient(new DiscordSocketConfig
-                { 
-                    LogLevel = LogSeverity.Debug 
-                });
+            Console.WriteLine("Ready for takeoff...");
+            var client = services.GetRequiredService<DiscordSocketClient>();
 
-            commands = new CommandService();
-            Help = new CommandService();
             client.Log += Log;
-            commands.Log += Log;
-            Help.Log += Log;
-            client.Ready += () =>
-                {
-                    Hellow = ConfigurationManager.AppSettings.Get("Hellow");
-                    Console.WriteLine("[Info]: " + Hellow);
-                    return Task.CompletedTask;
-                };
+            services.GetRequiredService<CommandService>().Log += Log;
 
-            await InstallCommandsAsync();
-            
-            Token = ConfigurationManager.AppSettings.Get("Token");
-                await client.LoginAsync(TokenType.Bot, Token);
-           // Console.WriteLine("The value of Token: " + sAttr);
+            JObject config = Functions.GetConfig();
+            string token = config["token"].Value<string>();
+
+            await client.LoginAsync(TokenType.Bot, token);
             await client.StartAsync();
+
+            await services.GetRequiredService<CommandHandlingService>().InitializeAsync();
+
             await Task.Delay(-1);
         }
 
-        public async Task InstallCommandsAsync()
+        public ServiceProvider ConfigureServices()
         {
-            client.MessageReceived += HandleCommandAsync;
-            await commands.AddModulesAsync(Assembly.GetEntryAssembly(), null);
-            await Help.AddModulesAsync(Assembly.GetEntryAssembly(), null);
+            return new ServiceCollection()
+                .AddSingleton(new DiscordSocketClient(new DiscordSocketConfig
+                {
+                    MessageCacheSize = 500,
+                    LogLevel = LogSeverity.Debug
+                }))
+                .AddSingleton(new CommandService(new CommandServiceConfig
+                {
+                    LogLevel = LogSeverity.Debug,
+                    DefaultRunMode = RunMode.Async,
+                    CaseSensitiveCommands = false
+                }))
+                .AddSingleton<CommandHandlingService>()
+                .BuildServiceProvider();
         }
 
-        private async Task HandleCommandAsync(SocketMessage pmsg)
-        {
-            var message = (SocketUserMessage)pmsg;
-            if (message == null) return;
-            int argPos = 0;
-
-            // Prefix
-            if (!message.HasCharPrefix('!', ref argPos)) return;
-            var context = new SocketCommandContext(client, message);
-            var result = await commands.ExecuteAsync(context, argPos, null);
-
-            // Erreur
-            if (!result.IsSuccess) 
-                await context.Channel.SendMessageAsync(result.ErrorReason);
-        }
-
-        private static Task Log (LogMessage arg)
+        private static Task Log(LogMessage arg)
         {
             switch (arg.Severity)
             {
@@ -89,16 +72,11 @@ namespace csharp_discord_bot
                 case LogSeverity.Debug:
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     break;
-
-                default:
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    break;
             }
-                Console.WriteLine($"{DateTime.Now,-19} [{arg.Severity,7}] {arg.Source}: {arg.Message} {arg.Exception}");
-                Console.ResetColor();
+            Console.WriteLine($"{DateTime.Now,-19} [{arg.Severity,7}] {arg.Source}: {arg.Message} {arg.Exception}");
+            Console.ResetColor();
             return Task.CompletedTask;
         }
     }
 
 }
-

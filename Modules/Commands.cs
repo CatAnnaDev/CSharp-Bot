@@ -5,29 +5,12 @@ using Newtonsoft.Json.Linq;
 using System.Net;
 using System;
 using Discord.WebSocket;
-using System.Configuration;
 
 namespace csharp_discord_bot.Modules
 {
     public class Commands : ModuleBase<SocketCommandContext>
     {
-        string Cats;
-        string Dogy;
-        string giphelove;
-        string giphykittens;
-        string memeu;
-        string porns;
 
-        [Command("ping")]
-        public async Task PingAsync()
-        {
-            await ReplyAsync("Pong!");
-        }
-        [Command("avatar")]
-        public async Task AvatrAsync(ushort Size = 512)
-        {
-            await ReplyAsync(CDN.GetUserAvatarUrl(Context.User.Id, Context.User.AvatarId, Size = 512, ImageFormat.Auto));
-        }
         [Command("react")]
         public async Task ReactAsync(string pmsg, string pEmoji)
         {
@@ -40,7 +23,8 @@ namespace csharp_discord_bot.Modules
         [Alias("cats", "cat", "yaong")]
         public async Task MeowAsync()
         {
-            Cats = ConfigurationManager.AppSettings.Get("Cats");
+            JObject config = Functions.GetConfig();
+            string Cats = config["Cats"].Value<string>();
             WebClient c = new WebClient();
             var data = c.DownloadString(Cats);
             JObject meows = JObject.Parse(data);
@@ -50,7 +34,8 @@ namespace csharp_discord_bot.Modules
         [Command("dog")]
         public async Task DogAsync()
         {
-            Dogy = ConfigurationManager.AppSettings.Get("Dogs");
+            JObject config = Functions.GetConfig();
+            string Dogy = config["Dogs"].Value<string>();
             WebClient c = new WebClient();
             var data = c.DownloadString(Dogy);
             JObject Dogs = JObject.Parse(data);
@@ -60,7 +45,8 @@ namespace csharp_discord_bot.Modules
         [Command("Love")]
         public async Task LoveAsync()
         {
-            giphelove = ConfigurationManager.AppSettings.Get("giphelove");
+            JObject config = Functions.GetConfig();
+            string giphelove = config["giphelove"].Value<string>();
             WebClient c = new WebClient();
             var data = c.DownloadString(giphelove);
             JObject Loves = JObject.Parse(data);
@@ -71,7 +57,8 @@ namespace csharp_discord_bot.Modules
         [Command("gif")]
         public async Task GifAsync()
         {
-            giphykittens = ConfigurationManager.AppSettings.Get("giphykittens");
+            JObject config = Functions.GetConfig();
+            string giphykittens = config["giphykittens"].Value<string>();
             WebClient c = new WebClient();
             var data = c.DownloadString(giphykittens);
             JObject meows = JObject.Parse(data);
@@ -83,7 +70,8 @@ namespace csharp_discord_bot.Modules
         [Alias("truc", "fun", "lol")]
         public async Task MemeAsync()
         {
-            memeu = ConfigurationManager.AppSettings.Get("meme");
+            JObject config = Functions.GetConfig();
+            string memeu = config["meme"].Value<string>();
             WebClient c = new WebClient();
             var data = c.DownloadString(memeu);
             JObject Memes = JObject.Parse(data);
@@ -94,7 +82,8 @@ namespace csharp_discord_bot.Modules
         [Alias("porn", "pussy", "-18")]
         public async Task AsianAsync()
         {
-            porns = ConfigurationManager.AppSettings.Get("porn");
+            JObject config = Functions.GetConfig();
+            string porns = config["porn"].Value<string>();
             WebClient c = new WebClient();
             var data = c.DownloadString(porns);
             JObject asians = JObject.Parse(data);
