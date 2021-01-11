@@ -17,8 +17,10 @@ dog | Pic / Gif of Dogs
 Love | Pic / Gif of Loves
 gif | Pic / Gif of Kittens
 meme | Pic / Gif of Meme from Reddit
+porn | Pic / Gif of NSFW
 say | Echoes a message
 square | Squares a number
+source | to get Source code
 userinfo | Returns info about the current user, or the user parameter, if one passed.
 
 ------
