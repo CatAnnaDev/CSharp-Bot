@@ -12,6 +12,7 @@ namespace csharp_discord_bot
     {
         private DiscordSocketClient client;
         private CommandService commands;
+        private CommandService Help;
 
         static void Main(string[] args) 
             => new Program().RunBotAsync().GetAwaiter().GetResult();
@@ -20,15 +21,17 @@ namespace csharp_discord_bot
             {
             string Token;
             string Hellow;
-            
+
             client = new DiscordSocketClient(new DiscordSocketConfig
                 { 
                     LogLevel = LogSeverity.Debug 
                 });
 
             commands = new CommandService();
-                client.Log += Log;
+            Help = new CommandService();
+            client.Log += Log;
             commands.Log += Log;
+            Help.Log += Log;
             client.Ready += () =>
                 {
                     Hellow = ConfigurationManager.AppSettings.Get("Hellow");
@@ -39,11 +42,7 @@ namespace csharp_discord_bot
             await InstallCommandsAsync();
             
             Token = ConfigurationManager.AppSettings.Get("Token");
-            if (Token.Length <= 50)
-            {
-                Console.WriteLine("NO TOKEN OR WRONG" + Token);
-            }
-            await client.LoginAsync(TokenType.Bot, Token);
+                await client.LoginAsync(TokenType.Bot, Token);
            // Console.WriteLine("The value of Token: " + sAttr);
             await client.StartAsync();
             await Task.Delay(-1);
@@ -53,6 +52,7 @@ namespace csharp_discord_bot
         {
             client.MessageReceived += HandleCommandAsync;
             await commands.AddModulesAsync(Assembly.GetEntryAssembly(), null);
+            await Help.AddModulesAsync(Assembly.GetEntryAssembly(), null);
         }
 
         private async Task HandleCommandAsync(SocketMessage pmsg)
@@ -89,10 +89,16 @@ namespace csharp_discord_bot
                 case LogSeverity.Debug:
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     break;
+
+                default:
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    break;
             }
-            Console.WriteLine($"{DateTime.Now,-19} [{arg.Severity,8}] {arg.Source}: {arg.Message} {arg.Exception}");
-            Console.ResetColor();
+                Console.WriteLine($"{DateTime.Now,-19} [{arg.Severity,7}] {arg.Source}: {arg.Message} {arg.Exception}");
+                Console.ResetColor();
             return Task.CompletedTask;
         }
     }
+
 }
+

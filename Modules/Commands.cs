@@ -127,30 +127,6 @@ namespace csharp_discord_bot.Modules
             var userInfo = user ?? Context.Client.CurrentUser;
             await ReplyAsync($"{userInfo.Username}#{userInfo.Discriminator}");
         }
-        [Command("help")]
-        public async Task HelpAsync()
-        {
-            var builder = new EmbedBuilder()
-    .WithTitle("~(c# bot help )~")
-    .WithColor(new Color(0xFF00FF))
-    .WithTimestamp(DateTimeOffset.FromUnixTimeMilliseconds(1610151618624))
-    .AddField("!ping", "ping le bot")
-    .AddField("!love", "Love pic")
-    .AddField("!gif", "Kittens gif")
-    .AddField("!avatar", "retrouve le lien de vôtre avatar discord")
-    .AddField("!react", "auto react a une phrase")
-    .AddField("!meow", "Kittens gif / pic")
-    .AddField("!dog", "Dogs gif / pic")
-    .AddField("!meme", "Meme gif / pic")
-    .AddField("!say", "repeat your last sentence")
-    .AddField("!square", "square a number")
-    .AddField("!userinfo", "return info about the current user")
-    .AddField("!asian", "fun fun fun");
-            var embed = builder.Build();
-            await ReplyAsync(
-                null,
-                embed: embed)
-                .ConfigureAwait(false);
-        }
+
     }
 }
