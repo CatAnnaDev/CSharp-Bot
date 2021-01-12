@@ -37,3 +37,11 @@ purge | Bulk deletes messages in chat
 reloadconfig | Reloads the config and applies changes ( Owner ONLY )
 
 ------
+WIP Command
+
+Command Mod | Description
+--- | ---
+play | Play a music for YT
+leave | leave voice channel
+join | join voice channel
+------
