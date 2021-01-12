@@ -20,7 +20,7 @@ dog | Pic / Gif of Dogs
 Love | Pic / Gif of Loves
 gif | Pic / Gif of Kittens
 meme | Pic / Gif of Meme from Reddit
-porn | Pic / Gif of NSFW
+porn | Pic / Gif of NSFW [RequireNsfwChannel]
 say | Echoes a message
 square | Squares a number
 source | to get Source code
