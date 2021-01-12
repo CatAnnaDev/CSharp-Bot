@@ -1,4 +1,5 @@
-﻿using Discord;
+﻿using csharp_discord_bot.Player;
+using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,12 +17,14 @@ namespace csharp_discord_bot
         private readonly CommandService _commands;
         private readonly DiscordSocketClient _client;
         private readonly IServiceProvider _services;
+        private readonly AudioService _audio;
 
         public CommandHandlingService(IServiceProvider services)
         {
             _commands = services.GetRequiredService<CommandService>();
             _client = services.GetRequiredService<DiscordSocketClient>();
             _services = services;
+            _audio = services.GetRequiredService<AudioService>();
 
             // Event handlers
             _client.Ready += ClientReadyAsync;

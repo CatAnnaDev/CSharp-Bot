@@ -1,4 +1,5 @@
-﻿using Discord;
+﻿using csharp_discord_bot.Player;
+using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,13 +26,14 @@ namespace csharp_discord_bot
                     CaseSensitiveCommands = false
                 }))
                 .AddSingleton<CommandHandlingService>()
+                .AddSingleton<AudioService>()
                 .BuildServiceProvider();
         }
 
         public async Task MainAsync()
         {
             using var services = ConfigureServices();
-
+            Console.Title = "C# Discord bot";
             Console.WriteLine("Ready for takeoff...");
             var client = services.GetRequiredService<DiscordSocketClient>();
 
