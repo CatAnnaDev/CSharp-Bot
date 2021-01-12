@@ -1,8 +1,7 @@
-﻿using System.Threading.Tasks;
-using Discord;
+﻿using Discord;
 using Discord.Commands;
 using System;
-
+using System.Threading.Tasks;
 
 namespace csharp_discord_bot.Modules
 {
@@ -24,6 +23,5 @@ namespace csharp_discord_bot.Modules
                 embed: embed)
                 .ConfigureAwait(false);
         }
-
     }
 }

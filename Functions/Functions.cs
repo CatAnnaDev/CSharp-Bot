@@ -46,20 +46,20 @@ namespace csharp_discord_bot
 
                 await client.SetGameAsync(statusText, type: activity);
                 Console.WriteLine($"{DateTime.Now.TimeOfDay:hh\\:mm\\:ss} | Playing status set | {activity}: {statusText}");
-            }            
+            }
         }
 
         public static JObject GetConfig()
         {
             // Get the config file.
             using StreamReader configJson = new StreamReader(Directory.GetCurrentDirectory() + @"/Config.json");
-                return (JObject)JsonConvert.DeserializeObject(configJson.ReadToEnd());
+            return (JObject)JsonConvert.DeserializeObject(configJson.ReadToEnd());
         }
 
         public static string GetAvatarUrl(SocketUser user, ushort size = 1024)
         {
             // Get user avatar and resize it. If the user has no avatar, get the default Discord avatar.
-            return user.GetAvatarUrl(size: size) ?? user.GetDefaultAvatarUrl(); 
+            return user.GetAvatarUrl(size: size) ?? user.GetDefaultAvatarUrl();
         }
     }
 }

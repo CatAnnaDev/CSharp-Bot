@@ -1,13 +1,13 @@
-﻿using System;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
-using Newtonsoft.Json.Linq;
-using Discord;
-using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace csharp_discord_bot
 {
@@ -19,7 +19,6 @@ namespace csharp_discord_bot
 
         public CommandHandlingService(IServiceProvider services)
         {
-
             _commands = services.GetRequiredService<CommandService>();
             _client = services.GetRequiredService<DiscordSocketClient>();
             _services = services;
@@ -46,8 +45,8 @@ namespace csharp_discord_bot
             {
                 var result = await _commands.ExecuteAsync(context, argPos, _services);
 
-                if (!result.IsSuccess && result.Error.HasValue)          
-                    await context.Channel.SendMessageAsync($":x: {result.ErrorReason}");          
+                if (!result.IsSuccess && result.Error.HasValue)
+                    await context.Channel.SendMessageAsync($":x: {result.ErrorReason}");
             }
         }
 
@@ -60,7 +59,7 @@ namespace csharp_discord_bot
                 return;
 
             foreach (var channel in guild.TextChannels.OrderBy(x => x.Position))
-            {                               
+            {
                 var botPerms = channel.GetPermissionOverwrite(_client.CurrentUser).GetValueOrDefault();
 
                 if (botPerms.SendMessages == PermValue.Deny)
@@ -71,8 +70,8 @@ namespace csharp_discord_bot
                     await channel.SendMessageAsync(joinMessage);
                     return;
                 }
-                catch 
-                { 
+                catch
+                {
                     continue;
                 }
             }
