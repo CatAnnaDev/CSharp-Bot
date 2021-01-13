@@ -22,7 +22,6 @@ namespace csharp_discord_bot.Handlers
         {
             Process cmd = new Process();
             cmd.StartInfo.FileName = @"cmd.exe";
-            //cmd.StartInfo.WorkingDirectory = @"Lavalink.jar";
             cmd.StartInfo.Arguments = @" /c java -jar Lavalink.jar ";
             cmd.Start();
         }

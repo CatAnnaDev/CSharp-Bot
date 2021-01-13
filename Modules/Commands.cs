@@ -3,6 +3,7 @@ using Discord.Commands;
 using Discord.WebSocket;
 using Newtonsoft.Json.Linq;
 using System;
+using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -23,6 +24,78 @@ namespace csharp_discord_bot.Modules
             JObject asians = JObject.Parse(data);
             var asian = asians.SelectToken("url");
             await ReplyAsync(asian.ToString());
+        }
+
+        [RequireNsfw]
+        [Command("nsfw")]
+        [Summary("🔞Pornographic imagery")]
+        public async Task NsfwAsync([Remainder] string input = null)
+        {
+            if(input == null)
+            {
+                await ReplyAsync(" :x: No results or Name try like !Nsfw name"); return; 
+            }
+            else
+            {
+                var url = $"https://meme-api.herokuapp.com/gimme/{input}";
+                WebClient c = new WebClient();
+                try
+                {
+                    var data = c.DownloadString(url);
+                    JObject nsfw = JObject.Parse(data);
+                    var Urls = nsfw.SelectToken("url");
+                    await ReplyAsync(Urls.ToString());
+                }
+                catch(WebException ex)
+                { 
+                    using (StreamReader r = new StreamReader(
+                        ex.Response.GetResponseStream()))
+                    {
+                        string responseContent = r.ReadToEnd();
+                        await ReplyAsync(" :x: No results or Name like !Nsfw name"); return;
+                    }
+                }
+            }          
+        }
+
+        [Command("rd")]
+        [Summary("Reddit imagery")]
+        public async Task RedditAsync([Remainder] string input = null)
+        {
+            if (input == null)
+            {
+                await ReplyAsync(" :x: No results or Name try like !Rd name"); return;
+            }
+            else
+            {
+                var url = $"https://meme-api.herokuapp.com/gimme/{input}";
+                WebClient c = new WebClient();
+                try
+                {
+                    var data = c.DownloadString(url);
+                    JObject Rd = JObject.Parse(data);
+                    var Urls = Rd.SelectToken("nsfw");
+                    var Check = Urls.ToObject<bool>();
+                    if(Check == true)
+                    {
+                        await ReplyAsync(" :x: Nsfw detected ! :x: Use !Nsfw name in a Nsfw channel :x: "); return;
+                    }
+                    else
+                    {
+                        var Safe = Rd.SelectToken("url");
+                        await ReplyAsync(Safe.ToString());
+                    }          
+                }
+                catch (WebException ex)
+                {
+                    using (StreamReader r = new StreamReader(
+                        ex.Response.GetResponseStream()))
+                    {
+                        string responseContent = r.ReadToEnd();
+                        await ReplyAsync(" :x: No results or Name like !Rd name"); return;
+                    }
+                }
+            }
         }
 
         [Command("dog")]
