@@ -18,6 +18,8 @@ Love | Pic / Gif of Loves
 gif | Pic / Gif of Kittens
 meme | Pic / Gif of Meme from Reddit
 porn | Pic / Gif of NSFW
+nsfw | Pic / Gif of NSFW from Reddit
+rd | Pic / Gif from Reddit with ( NSFW detection )
 say | Echoes a message
 square | Squares a number
 source | to get Source code
