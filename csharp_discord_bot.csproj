@@ -11,6 +11,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Modules\Utilitycs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Modules\Utilitycs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Discord.Net" Version="2.2.0" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="Lavalink4NET.Discord.NET" Version="1.6.2" />
