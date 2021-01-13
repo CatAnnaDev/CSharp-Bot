@@ -17,7 +17,7 @@ dog | Pic / Gif of Dogs
 Love | Pic / Gif of Loves
 gif | Pic / Gif of Kittens
 meme | Pic / Gif of Meme from Reddit
-porn | Pic / Gif of NSFW [RequireNsfwChannel]
+porn | Pic / Gif of NSFW
 say | Echoes a message
 square | Squares a number
 source | to get Source code
@@ -36,9 +36,15 @@ reloadconfig | Reloads the config and applies changes ( Owner ONLY )
 ------
 WIP Command
 
-Command Mod | Description
+Command Music | Description
 --- | ---
-play | Play a music for YT
+play | Play a music for YT (url or name)
 leave | leave voice channel
 join | join voice channel
+stop | stop music
+list | show all queue song 
+skip | skip actual music
+volume | set volume at your value 
+pause | set pause 
+resume | relaunch music
 ------
