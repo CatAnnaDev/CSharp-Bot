@@ -4,24 +4,24 @@ namespace csharp_discord_bot.DataStructs
 {
     public class BotConfig
     {   //BOT
-        public string token { get; set; }
-        public string prefixes { get; set; }
-        public string join_message { get; set; }
+        public string Token { get; set; }
+        public string Prefixes { get; set; }
+        public string Join_message { get; set; }
 
         //GameStatus
-        public string currently { get; set; }
+        public string Currently { get; set; }
 
-        public string playing_status { get; set; }
-        public string status { get; set; }
+        public string Playing_status { get; set; }
+        public string Status { get; set; }
 
         //URL
         public string Cats { get; set; }
 
         public string Dogs { get; set; }
-        public string giphelove { get; set; }
-        public string giphykittens { get; set; }
-        public string meme { get; set; }
-        public string porn { get; set; }
+        public string Giphelove { get; set; }
+        public string Giphykittens { get; set; }
+        public string Meme { get; set; }
+        public string Porn { get; set; }
 
         //BL
         public List<ulong> BlacklistedChannels { get; set; }

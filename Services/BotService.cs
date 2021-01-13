@@ -18,7 +18,7 @@ namespace csharp_discord_bot.Services
             fields.Add(new EmbedFieldBuilder
             {
                 Name = "Client Info",
-                Value = $"Current Server: {context.Guild.Name} - Prefix: {GlobalData.Config.prefixes}",
+                Value = $"Current Server: {context.Guild.Name} - Prefix: {GlobalData.Config.Prefixes}",
                 IsInline = false
             });
             fields.Add(new EmbedFieldBuilder

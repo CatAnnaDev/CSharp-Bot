@@ -3,24 +3,36 @@ using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
 namespace csharp_discord_bot.Handlers
 {
+    
     public class CommandHandler
     {
+
         private readonly DiscordSocketClient _client;
         private readonly CommandService _commands;
         private readonly IServiceProvider _services;
+
+        public void Lava()
+        {
+            Process cmd = new Process();
+            cmd.StartInfo.FileName = @"cmd.exe";
+            //cmd.StartInfo.WorkingDirectory = @"Lavalink.jar";
+            cmd.StartInfo.Arguments = @" /c java -jar Lavalink.jar ";
+            cmd.Start();
+        }
 
         public CommandHandler(IServiceProvider services)
         {
             _commands = services.GetRequiredService<CommandService>();
             _client = services.GetRequiredService<DiscordSocketClient>();
             _services = services;
-
+            Lava();
             HookEvents();
         }
 
@@ -44,7 +56,7 @@ namespace csharp_discord_bot.Handlers
             if (!(socketMessage is SocketUserMessage message) || message.Author.IsBot || message.Author.IsWebhook || message.Channel is IPrivateChannel)
                 return Task.CompletedTask;
 
-            if (!message.HasStringPrefix(GlobalData.Config.prefixes, ref argPos))
+            if (!message.HasStringPrefix(GlobalData.Config.Prefixes, ref argPos))
                 return Task.CompletedTask;
 
             var context = new SocketCommandContext(_client, socketMessage as SocketUserMessage);

@@ -17,9 +17,11 @@ namespace csharp_discord_bot.Services
         private readonly LavaNode _lavaNode;
         private readonly LavaLinkAudio _audioService;
         private readonly GlobalData _globalData;
+  
 
         public DiscordService()
         {
+            Console.Title = "C# Discord Bot";
             _services = ConfigureServices();
             _client = _services.GetRequiredService<DiscordSocketClient>();
             _commandHandler = _services.GetRequiredService<CommandHandler>();
@@ -35,7 +37,7 @@ namespace csharp_discord_bot.Services
         {
             await InitializeGlobalDataAsync();
 
-            await _client.LoginAsync(TokenType.Bot, GlobalData.Config.token);
+            await _client.LoginAsync(TokenType.Bot, GlobalData.Config.Token);
             await _client.StartAsync();
 
             await _commandHandler.InitializeAsync();
@@ -65,7 +67,7 @@ namespace csharp_discord_bot.Services
             try
             {
                 await _lavaNode.ConnectAsync();
-                await _client.SetGameAsync(GlobalData.Config.playing_status);
+                await _client.SetGameAsync(GlobalData.Config.Playing_status);
             }
             catch (Exception ex)
             {

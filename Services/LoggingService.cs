@@ -12,7 +12,7 @@ namespace csharp_discord_bot.Services
             {
                 severity = LogSeverity.Warning;
             }
-            await Append($"{GetSeverityString(severity)}", GetConsoleColor(severity));
+            await Append($"{DateTime.Now,-19} {GetSeverityString(severity)}", GetConsoleColor(severity));
             await Append($" [{SourceToString(src)}] ", ConsoleColor.DarkGray);
 
             if (!string.IsNullOrWhiteSpace(message))

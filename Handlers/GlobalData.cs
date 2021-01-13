@@ -33,20 +33,20 @@ namespace csharp_discord_bot.Handlers
         private static BotConfig GenerateNewConfig() => new BotConfig
         {
             //BOT
-            token = "",
-            prefixes = "!",
-            join_message = "CHANGE ME IN CONFIG",
+            Token = "",
+            Prefixes = "!",
+            Join_message = "CHANGE ME IN CONFIG",
             //GameStatus
-            currently = "playing|listening|watching|streaming",
-            playing_status = "cool status here.",
-            status = "online|dnd|idle|offline",
+            Currently = "playing|listening|watching|streaming",
+            Playing_status = "CHANGE ME IN CONFIG",
+            Status = "online|dnd|idle|offline",
             //URL
             Cats = "https://aws.random.cat/meow",
             Dogs = "https://dog.ceo/api/breeds/image/random",
-            giphelove = "https://api.giphy.com/v1/gifs/random?api_key= CHANGE_ME &tag=Love&rating=g",
-            giphykittens = "https://api.giphy.com/v1/gifs/random?api_key= CHANGE_ME &tag=kittens&rating=g",
-            meme = "https://meme-api.herokuapp.com/gimme",
-            porn = "",
+            Giphelove = "https://api.giphy.com/v1/gifs/random?api_key= CHANGE_ME &tag=Love&rating=g",
+            Giphykittens = "https://api.giphy.com/v1/gifs/random?api_key= CHANGE_ME &tag=kittens&rating=g",
+            Meme = "https://meme-api.herokuapp.com/gimme",
+            Porn = "",
             //BL
             BlacklistedChannels = new List<ulong>()
         };

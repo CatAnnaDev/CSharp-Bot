@@ -117,7 +117,7 @@ namespace csharp_discord_bot.Services
 
                 var player = _lavaNode.GetPlayer(guild);
                 if (player == null)
-                    return await EmbedHandler.CreateErrorEmbed("Music, List", $"Could not aquire player.\nAre you using the bot right now? check{GlobalData.Config.prefixes}Help for info on how to use the bot.");
+                    return await EmbedHandler.CreateErrorEmbed("Music, List", $"Could not aquire player.\nAre you using the bot right now? check{GlobalData.Config.Prefixes}Help for info on how to use the bot.");
 
                 if (player.PlayerState is PlayerState.Playing)
                 {
@@ -153,11 +153,11 @@ namespace csharp_discord_bot.Services
             {
                 var player = _lavaNode.GetPlayer(guild);
                 if (player == null)
-                    return await EmbedHandler.CreateErrorEmbed("Music, List", $"Could not aquire player.\nAre you using the bot right now? check{GlobalData.Config.prefixes}Help for info on how to use the bot.");
+                    return await EmbedHandler.CreateErrorEmbed("Music, List", $"Could not aquire player.\nAre you using the bot right now? check{GlobalData.Config.Prefixes}Help for info on how to use the bot.");
                 if (player.Queue.Count < 1)
                 {
                     return await EmbedHandler.CreateErrorEmbed("Music, SkipTrack", $"Unable To skip a track as there is only One or No songs currently playing." +
-                        $"\n\nDid you mean {GlobalData.Config.prefixes}Stop?");
+                        $"\n\nDid you mean {GlobalData.Config.Prefixes}Stop?");
                 }
                 else
                 {
@@ -187,7 +187,7 @@ namespace csharp_discord_bot.Services
                 var player = _lavaNode.GetPlayer(guild);
 
                 if (player == null)
-                    return await EmbedHandler.CreateErrorEmbed("Music, List", $"Could not aquire player.\nAre you using the bot right now? check{GlobalData.Config.prefixes}Help for info on how to use the bot.");
+                    return await EmbedHandler.CreateErrorEmbed("Music, List", $"Could not aquire player.\nAre you using the bot right now? check{GlobalData.Config.Prefixes}Help for info on how to use the bot.");
 
                 if (player.PlayerState is PlayerState.Playing)
                 {
