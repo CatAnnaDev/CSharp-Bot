@@ -16,6 +16,7 @@ namespace csharp_discord_bot
             await Context.Guild.AddBanAsync(targetUser.Id, 0, reason);
             await ReplyAsync($"**{targetUser}** has been banned. Bye bye :wave:");
         }
+
         [Command("kick")]
         [Summary("Kick a user from the server.")]
         [RequireBotPermission(GuildPermission.KickMembers)]
@@ -25,6 +26,7 @@ namespace csharp_discord_bot
             await targetUser.KickAsync(reason);
             await ReplyAsync($"**{targetUser}** has been kicked. Bye bye :wave:");
         }
+
         [Command("purge")]
         [Summary("Bulk deletes messages in chat")]
         [RequireBotPermission(GuildPermission.ManageMessages)]
@@ -35,6 +37,7 @@ namespace csharp_discord_bot
             var items = await channel.GetMessagesAsync(delNumber + 1).FlattenAsync();
             await channel.DeleteMessagesAsync(items);
         }
+
         [Command("reloadconfig")]
         [Summary("Reloads the config and applies changes")]
         [RequireOwner]

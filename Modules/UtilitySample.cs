@@ -19,6 +19,7 @@ namespace csharp_discord_bot
         [Summary("Show current latency.")]
         public async Task Ping()
             => await ReplyAsync($"Latency: {Context.Client.Latency} ms");
+
         [Command("role")]
         [Alias("roleinfo")]
         [Summary("Show information about a role.")]

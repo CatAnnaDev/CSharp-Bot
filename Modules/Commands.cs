@@ -130,7 +130,7 @@ namespace csharp_discord_bot.Modules
         [Command("test")]
         public async Task TestCommandAsync(string input)
         {
-            await ReplyAsync($" you've write : **{input}** : and that work fine " );
+            await ReplyAsync($" you've write : **{input}** : and that work fine ");
         }
     }
 }

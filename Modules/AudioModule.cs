@@ -1,7 +1,7 @@
-﻿using Discord;
+﻿using csharp_discord_bot.Services;
+using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
-using csharp_discord_bot.Services;
 using System.Threading.Tasks;
 
 namespace csharp_discord_bot.Modules
@@ -19,7 +19,7 @@ namespace csharp_discord_bot.Modules
             => await ReplyAsync(embed: await AudioService.LeaveAsync(Context.Guild));
 
         [Command("Play")]
-        public async Task Play([Remainder]string search)
+        public async Task Play([Remainder] string search)
             => await ReplyAsync(embed: await AudioService.PlayAsync(Context.User as SocketGuildUser, Context.Guild, search));
 
         [Command("Stop")]

@@ -1,14 +1,13 @@
-﻿using Discord;
+﻿using csharp_discord_bot.Handlers;
+using Discord;
 using Discord.WebSocket;
-using csharp_discord_bot.Handlers;
 using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Victoria;
-using Victoria.EventArgs;
 using Victoria.Enums;
-using Victoria.Responses.Rest;
+using Victoria.EventArgs;
 
 namespace csharp_discord_bot.Services
 {
@@ -82,12 +81,10 @@ namespace csharp_discord_bot.Services
                 await LoggingService.LogInformationAsync("Music", $"Bot Now Playing: {track.Title}\nUrl: {track.Url}");
                 return await EmbedHandler.CreateBasicEmbed("Music", $"Now Playing: {track.Title}\nUrl: {track.Url}", Color.Blue);
             }
-
             catch (Exception ex)
             {
                 return await EmbedHandler.CreateErrorEmbed("Music, Play", ex.Message);
             }
-
         }
 
         public async Task<Embed> LeaveAsync(IGuild guild)
@@ -148,7 +145,6 @@ namespace csharp_discord_bot.Services
             {
                 return await EmbedHandler.CreateErrorEmbed("Music, List", ex.Message);
             }
-
         }
 
         public async Task<Embed> SkipTrackAsync(IGuild guild)
@@ -176,7 +172,6 @@ namespace csharp_discord_bot.Services
                     {
                         return await EmbedHandler.CreateErrorEmbed("Music, Skip", ex.Message);
                     }
-
                 }
             }
             catch (Exception ex)
@@ -254,8 +249,8 @@ namespace csharp_discord_bot.Services
                 var player = _lavaNode.GetPlayer(guild);
 
                 if (player.PlayerState is PlayerState.Paused)
-                { 
-                    await player.ResumeAsync(); 
+                {
+                    await player.ResumeAsync();
                 }
 
                 return $"**Resumed:** {player.Track.Title}";

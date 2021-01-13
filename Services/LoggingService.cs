@@ -1,8 +1,5 @@
 ﻿using Discord;
-using Discord.WebSocket;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace csharp_discord_bot.Services
@@ -38,7 +35,8 @@ namespace csharp_discord_bot.Services
 
         private static async Task Append(string message, ConsoleColor color)
         {
-            await Task.Run(() => {
+            await Task.Run(() =>
+            {
                 Console.ForegroundColor = color;
                 Console.Write(message);
             });
@@ -50,22 +48,31 @@ namespace csharp_discord_bot.Services
             {
                 case "discord":
                     return "DISCD";
+
                 case "victoria":
                     return "VICTR";
+
                 case "audio":
                     return "AUDIO";
+
                 case "admin":
                     return "ADMIN";
+
                 case "gateway":
                     return "GTWAY";
+
                 case "blacklist":
                     return "BLAKL";
+
                 case "lavanode_0_socket":
                     return "LAVAS";
+
                 case "lavanode_0":
                     return "LAVA#";
+
                 case "bot":
                     return "BOTWN";
+
                 default:
                     return src;
             }
@@ -77,16 +84,22 @@ namespace csharp_discord_bot.Services
             {
                 case LogSeverity.Critical:
                     return "CRIT";
+
                 case LogSeverity.Debug:
                     return "DBUG";
+
                 case LogSeverity.Error:
                     return "EROR";
+
                 case LogSeverity.Info:
                     return "INFO";
+
                 case LogSeverity.Verbose:
                     return "VERB";
+
                 case LogSeverity.Warning:
                     return "WARN";
+
                 default: return "UNKN";
             }
         }
@@ -97,16 +110,22 @@ namespace csharp_discord_bot.Services
             {
                 case LogSeverity.Critical:
                     return ConsoleColor.Red;
+
                 case LogSeverity.Debug:
                     return ConsoleColor.Magenta;
+
                 case LogSeverity.Error:
                     return ConsoleColor.DarkRed;
+
                 case LogSeverity.Info:
                     return ConsoleColor.Green;
+
                 case LogSeverity.Verbose:
                     return ConsoleColor.DarkCyan;
+
                 case LogSeverity.Warning:
                     return ConsoleColor.Yellow;
+
                 default: return ConsoleColor.White;
             }
         }

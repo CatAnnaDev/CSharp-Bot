@@ -1,8 +1,8 @@
-﻿using Discord;
+﻿using csharp_discord_bot.Handlers;
+using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
-using csharp_discord_bot.Handlers;
 using System;
 using System.Threading.Tasks;
 using Victoria;
@@ -71,7 +71,6 @@ namespace csharp_discord_bot.Services
             {
                 await LoggingService.LogInformationAsync(ex.Source, ex.Message);
             }
-
         }
 
         private async Task LogAsync(LogMessage logMessage)

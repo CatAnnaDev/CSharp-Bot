@@ -1,5 +1,4 @@
-﻿using csharp_discord_bot.Handlers;
-using Discord;
+﻿using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;

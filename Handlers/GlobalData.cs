@@ -1,7 +1,7 @@
-﻿using Discord;
-using Newtonsoft.Json;
-using csharp_discord_bot.DataStructs;
+﻿using csharp_discord_bot.DataStructs;
 using csharp_discord_bot.Services;
+using Discord;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
