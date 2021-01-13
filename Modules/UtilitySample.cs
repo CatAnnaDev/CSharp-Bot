@@ -41,7 +41,7 @@ namespace csharp_discord_bot
         [Command("info")]
         [Alias("server", "serverinfo")]
         [Summary("Show server information.")]
-        [RequireBotPermission(GuildPermission.EmbedLinks)] // Require the bot the have the 'Embed Links' permissions to execute this command.
+        [RequireBotPermission(GuildPermission.EmbedLinks)]
         public async Task ServerEmbed()
         {
             double botPercentage = Math.Round(Context.Guild.Users.Count(x => x.IsBot) / Context.Guild.MemberCount * 100d, 2);
@@ -65,7 +65,7 @@ namespace csharp_discord_bot
 
             await ReplyAsync($":information_source: Server info for **{Context.Guild.Name}**", embed: embed.Build());
         }
-        // Please don't remove this command. I will appreciate it a lot <3
+
         [Command("source")]
         [Alias("sourcecode", "src")]
         [Summary("Link the source code used for this bot.")]

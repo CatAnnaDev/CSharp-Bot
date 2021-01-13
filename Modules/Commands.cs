@@ -10,8 +10,10 @@ namespace csharp_discord_bot.Modules
 {
     public class Commands : ModuleBase<SocketCommandContext>
     {
+        [RequireNsfw]
         [Command("asian")]
         [Alias("porn", "pussy", "-18")]
+        [Summary("🔞Pornographic imagery")]
         public async Task AsianAsync()
         {
             JObject config = Functions.GetConfig();
@@ -94,6 +96,7 @@ namespace csharp_discord_bot.Modules
             var emeji = new Emoji(pEmoji);
             await message.AddReactionAsync(emeji);
         }
+
         [Command("square")]
         [Summary("Squares a number.")]
         public async Task SquareAsync(
@@ -119,8 +122,15 @@ namespace csharp_discord_bot.Modules
         {
             [Command("say")]
             [Summary("Echoes a message.")]
-            public Task SayAsync([Remainder][Summary("The text to echo")] string echo)
+            public Task SayAsync([Remainder] string echo)
                 => ReplyAsync(echo);
+        }
+
+        [RequireOwner]
+        [Command("test")]
+        public async Task TestCommandAsync(string input)
+        {
+            await ReplyAsync($" you've write : **{input}** : and that work fine " );
         }
     }
 }
